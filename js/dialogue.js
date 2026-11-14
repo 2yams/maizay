@@ -138,20 +138,28 @@
 
     var line = D.curLine();
     var bx = 60, bw = TL.W - 120, by = TL.H - 190, bh = 150;
-    TL.panel(ctx, bx, by, bw, bh, { bg: 'rgba(5,18,24,0.94)' });
+    /* single clean semi-transparent container: flat fill + one thin border,
+       no stacked panels, no corner brackets */
+    ctx.fillStyle = 'rgba(5,16,22,0.88)';
+    ctx.fillRect(bx, by, bw, bh);
+    ctx.strokeStyle = 'rgba(110,220,200,0.25)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(bx + 0.5, by + 0.5, bw - 1, bh - 1);
 
     if (line) {
       var sp = speakerOf(line.w);
       /* portrait: user-imported avatar if provided, pixel art otherwise */
       var px = bx + 16, py = by + 16;
-      TL.panel(ctx, px - 4, py - 4, 104, 104, { corner: sp.color });
+      ctx.strokeStyle = sp.color;
+      ctx.strokeRect(px - 4.5, py - 4.5, 103, 103);
       var av = TL.Images ? TL.Images.avatar(sp.portrait) : null;
       ctx.imageSmoothingEnabled = !!av;
       ctx.drawImage(av || TL.portrait(sp.portrait), px, py, 96, 96);
       ctx.imageSmoothingEnabled = false;
       /* name */
-      TL.panel(ctx, px + 112, by + 10, 180, 22, { bg: 'rgba(10,30,36,0.9)', corner: sp.color });
-      TL.text(ctx, sp.name, px + 122, by + 15, 9, sp.color);
+      TL.text(ctx, sp.name, px + 112, by + 15, 9, sp.color);
+      ctx.fillStyle = 'rgba(110,220,200,0.18)';
+      ctx.fillRect(px + 112, by + 32, 180, 1);
       /* text with typewriter */
       var shown = line.t.slice(0, Math.floor(D.curPos()));
       var lines = TL.wrap(ctx, shown, bw - 150, 10);

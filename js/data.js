@@ -217,7 +217,36 @@
   /* theme: sky top/bottom, sun, ground palette, rock palette, far silhouettes */
   TL.D.AREAS = [
     {
-      id: 'ares', name: 'WORLD 01', region: 'ARES VALLIS', year: '1997', sub: 'PATHFINDER & SOJOURNER', w: 5600, rugged: 0.5,
+      id: 'chryse', name: 'WORLD 01', region: 'CHRYSE PLANITIA', year: '1976', sub: 'VIKING 1', w: 4600, rugged: 0.45,
+      theme: { skyA: '#cf7d4a', skyB: '#93452c', sun: '#ffd8a0', far: '#683226', mid: '#95492f', ground: '#ad5f34', groundDark: '#753e22', rock: '#83482e', rockHi: '#b97448', dust: '#e2a172', stars: false },
+      objective: 'ANSWER THE OLDEST CALL',
+      ents: [
+        { type: 'char', id: 'viking1', x: 2900 },
+        { type: 'station', x: 500 },
+        { type: 'station', x: 1800 },
+        { type: 'pit', x: 1200, w: 88 },
+
+        { type: 'exit', dir: 1, x: 4560, to: 'utopia' }
+      ],
+      items: ['chryse_patch', 'chryse_note']
+    },
+    {
+      id: 'utopia', name: 'WORLD 02', region: 'UTOPIA PLANITIA', year: '1976', sub: 'VIKING 2', w: 5600, rugged: 0.6,
+      theme: { skyA: '#b56a44', skyB: '#6e3a2c', sun: '#f5c99a', far: '#4e2822', mid: '#7c3e2c', ground: '#96502e', groundDark: '#63361f', rock: '#74402a', rockHi: '#a4663e', dust: '#cf9168', stars: false },
+      objective: 'FIND THE NORTHERN TWIN',
+      ents: [
+        { type: 'char', id: 'viking2', x: 3600 },
+        { type: 'station', x: 700 },
+        { type: 'station', x: 2300 },
+        { type: 'pit', x: 1600, w: 96 },
+        { type: 'pit', x: 4500, w: 96 },
+        { type: 'exit', dir: -1, x: 40, to: 'chryse' },
+        { type: 'exit', dir: 1, x: 5560, to: 'ares' }
+      ],
+      items: ['utopia_patch', 'utopia_note', 'utopia_shard']
+    },
+    {
+      id: 'ares', name: 'WORLD 03', region: 'ARES VALLIS', year: '1997', sub: 'PATHFINDER & SOJOURNER', w: 5600, rugged: 0.5,
       theme: { skyA: '#c86a3c', skyB: '#8a3f28', sun: '#ffd9a0', far: '#6d2f22', mid: '#93472f', ground: '#b56536', groundDark: '#7e3f22', rock: '#8a4a30', rockHi: '#c07a4a', dust: '#e8a070', stars: false },
       objective: 'INVESTIGATE UNKNOWN SIGNAL',
       ents: [
@@ -227,13 +256,14 @@
         { type: 'station', x: 3200 },
         { type: 'pit', x: 3550, w: 96 },
         { type: 'pit', x: 4300, w: 88 },
+        { type: 'exit', dir: -1, x: 40, to: 'utopia' },
         { type: 'exit', dir: 1, x: 5560, to: 'gusev' }
       ],
       items: ['ares_patch', 'ares_photo', 'ares_note'],
       intro: true
     },
     {
-      id: 'gusev', name: 'WORLD 02', region: 'GUSEV CRATER', year: '2004', sub: 'SPIRIT', w: 5200, rugged: 0.8,
+      id: 'gusev', name: 'WORLD 04', region: 'GUSEV CRATER', year: '2004', sub: 'SPIRIT', w: 5200, rugged: 0.8,
       theme: { skyA: '#d47a44', skyB: '#8c4227', sun: '#ffdca6', far: '#5d2b20', mid: '#8a432c', ground: '#a85830', groundDark: '#6e3a20', rock: '#7d442c', rockHi: '#b06a40', dust: '#e09a6a', stars: false },
       objective: 'LOCATE THE GRUMBLING ROVER',
       ents: [
@@ -248,7 +278,7 @@
       items: ['gusev_patch', 'gusev_note', 'gusev_photo']
     },
     {
-      id: 'meridiani', name: 'WORLD 03', region: 'MERIDIANI PLANUM', year: '2004', sub: 'OPPORTUNITY', w: 5400, rugged: 0.2,
+      id: 'meridiani', name: 'WORLD 05', region: 'MERIDIANI PLANUM', year: '2004', sub: 'OPPORTUNITY', w: 5400, rugged: 0.2,
       theme: { skyA: '#c77a4a', skyB: '#7d4630', sun: '#ffe0b0', far: '#63301f', mid: '#8f4d2e', ground: '#8f5632', groundDark: '#5f3a22', rock: '#6e4630', rockHi: '#a5744c', dust: '#d9a072', stars: false },
       objective: 'FIND THE TALKATIVE ROVER',
       ents: [
@@ -257,38 +287,9 @@
         { type: 'station', x: 2700 },
         { type: 'pit', x: 2100, w: 96 },
         { type: 'exit', dir: -1, x: 40, to: 'gusev' },
-        { type: 'exit', dir: 1, x: 5360, to: 'chryse' }
+        { type: 'exit', dir: 1, x: 5360, to: 'boreal' }
       ],
       items: ['meridi_patch', 'meridi_photo', 'meridi_note']
-    },
-    {
-      id: 'chryse', name: 'WORLD 04', region: 'CHRYSE PLANITIA', year: '1976', sub: 'VIKING 1', w: 4600, rugged: 0.45,
-      theme: { skyA: '#cf7d4a', skyB: '#93452c', sun: '#ffd8a0', far: '#683226', mid: '#95492f', ground: '#ad5f34', groundDark: '#753e22', rock: '#83482e', rockHi: '#b97448', dust: '#e2a172', stars: false },
-      objective: 'ANSWER THE OLDEST CALL',
-      ents: [
-        { type: 'char', id: 'viking1', x: 2900 },
-        { type: 'station', x: 500 },
-        { type: 'station', x: 1800 },
-        { type: 'pit', x: 1200, w: 88 },
-        { type: 'exit', dir: -1, x: 40, to: 'meridiani' },
-        { type: 'exit', dir: 1, x: 4560, to: 'utopia' }
-      ],
-      items: ['chryse_patch', 'chryse_note']
-    },
-    {
-      id: 'utopia', name: 'WORLD 05', region: 'UTOPIA PLANITIA', year: '1976', sub: 'VIKING 2', w: 5600, rugged: 0.6,
-      theme: { skyA: '#b56a44', skyB: '#6e3a2c', sun: '#f5c99a', far: '#4e2822', mid: '#7c3e2c', ground: '#96502e', groundDark: '#63361f', rock: '#74402a', rockHi: '#a4663e', dust: '#cf9168', stars: false },
-      objective: 'FIND THE NORTHERN TWIN',
-      ents: [
-        { type: 'char', id: 'viking2', x: 3600 },
-        { type: 'station', x: 700 },
-        { type: 'station', x: 2300 },
-        { type: 'pit', x: 1600, w: 96 },
-        { type: 'pit', x: 4500, w: 96 },
-        { type: 'exit', dir: -1, x: 40, to: 'chryse' },
-        { type: 'exit', dir: 1, x: 5560, to: 'boreal' }
-      ],
-      items: ['utopia_patch', 'utopia_note', 'utopia_shard']
     },
     {
       id: 'boreal', name: 'WORLD 06', region: 'VASTITAS BOREALIS', year: '2008', sub: 'PHOENIX', w: 5000, rugged: 0.35,
@@ -299,13 +300,27 @@
         { type: 'station', x: 600 },
         { type: 'station', x: 2000 },
         { type: 'pit', x: 1400, w: 88 },
-        { type: 'exit', dir: -1, x: 40, to: 'utopia' },
-        { type: 'exit', dir: 1, x: 4960, to: 'elysium' }
+        { type: 'exit', dir: -1, x: 40, to: 'meridiani' },
+        { type: 'exit', dir: 1, x: 4960, to: 'gale' }
       ],
       items: ['boreal_patch', 'boreal_photo', 'boreal_note']
     },
     {
-      id: 'elysium', name: 'WORLD 07', region: 'ELYSIUM PLANITIA', year: '2018', sub: 'INSIGHT', w: 5400, rugged: 0.25,
+      id: 'gale', name: 'WORLD 07', region: 'GALE CRATER', year: '2012', sub: 'CURIOSITY', w: 5400, rugged: 0.5,
+      theme: { skyA: '#c97e4e', skyB: '#86462e', sun: '#ffdba4', far: '#643428', mid: '#904c30', ground: '#a85e36', groundDark: '#704022', rock: '#7e4a30', rockHi: '#b2724a', dust: '#dfa276', stars: false, mountain: true },
+      objective: 'FIND THE SINGING ROVER',
+      ents: [
+        { type: 'char', id: 'curiosity', x: 3000 },
+        { type: 'station', x: 900 },
+        { type: 'station', x: 2200 },
+        { type: 'pit', x: 1700, w: 96 },
+        { type: 'exit', dir: -1, x: 40, to: 'boreal' },
+        { type: 'exit', dir: 1, x: 5360, to: 'elysium' }
+      ],
+      items: ['gale_patch', 'gale_photo', 'gale_note']
+    },
+    {
+      id: 'elysium', name: 'WORLD 08', region: 'ELYSIUM PLANITIA', year: '2018', sub: 'INSIGHT', w: 5400, rugged: 0.25,
       theme: { skyA: '#c88a58', skyB: '#7d4e38', sun: '#ffe0b4', far: '#5e3a2c', mid: '#8a5a3c', ground: '#9a6238', groundDark: '#66421f', rock: '#7a503a', rockHi: '#ae7a52', dust: '#dcae82', stars: false, volcano: true },
       objective: 'LISTEN FOR THE QUIET ONE',
       ents: [
@@ -313,13 +328,13 @@
         { type: 'station', x: 800 },
         { type: 'station', x: 2500 },
         { type: 'pit', x: 2000, w: 96 },
-        { type: 'exit', dir: -1, x: 40, to: 'boreal' },
+        { type: 'exit', dir: -1, x: 40, to: 'gale' },
         { type: 'exit', dir: 1, x: 5360, to: 'jezero' }
       ],
       items: ['elysium_patch', 'elysium_note', 'elysium_photo']
     },
     {
-      id: 'jezero', name: 'WORLD 08', region: 'JEZERO CRATER', year: '2021', sub: 'INGENUITY & PERSEVERANCE', w: 5800, rugged: 0.7,
+      id: 'jezero', name: 'WORLD 09', region: 'JEZERO CRATER', year: '2021', sub: 'INGENUITY & PERSEVERANCE', w: 5800, rugged: 0.7,
       theme: { skyA: '#d4814a', skyB: '#8c472c', sun: '#ffd9a2', far: '#663224', mid: '#94492e', ground: '#b26238', groundDark: '#7a4024', rock: '#84482e', rockHi: '#bb7648', dust: '#e6a272', stars: false, delta: true },
       objective: 'REACH THE FLIGHT TEST AREA',
       ents: [
@@ -330,26 +345,12 @@
         { type: 'pit', x: 1800, w: 96 },
         { type: 'pit', x: 5100, w: 88 },
         { type: 'exit', dir: -1, x: 40, to: 'elysium' },
-        { type: 'exit', dir: 1, x: 5760, to: 'gale' }
+        { type: 'exit', dir: 1, x: 5760, to: 'relay' }
       ],
       items: ['jezero_patch', 'jezero_note', 'jezero_shard']
     },
     {
-      id: 'gale', name: 'WORLD 09', region: 'GALE CRATER', year: '2012', sub: 'CURIOSITY', w: 5400, rugged: 0.5,
-      theme: { skyA: '#c97e4e', skyB: '#86462e', sun: '#ffdba4', far: '#643428', mid: '#904c30', ground: '#a85e36', groundDark: '#704022', rock: '#7e4a30', rockHi: '#b2724a', dust: '#dfa276', stars: false, mountain: true },
-      objective: 'FIND THE SINGING ROVER',
-      ents: [
-        { type: 'char', id: 'curiosity', x: 3000 },
-        { type: 'station', x: 900 },
-        { type: 'station', x: 2200 },
-        { type: 'pit', x: 1700, w: 96 },
-        { type: 'exit', dir: -1, x: 40, to: 'jezero' },
-        { type: 'exit', dir: 1, x: 5360, to: 'relay' }
-      ],
-      items: ['gale_patch', 'gale_photo', 'gale_note']
-    },
-    {
-      id: 'relay', name: 'WORLD 10', region: 'UNKNOWN SOURCE', year: '1965', sub: 'MARINER 4 ECHO', w: 4200, rugged: 0.4,
+      id: 'relay', name: 'WORLD 10', region: 'UNKNOWN SOURCE', year: 'PRESENT', sub: 'MARINER 4 ECHO', w: 4200, rugged: 0.4,
       theme: { skyA: '#6a4a58', skyB: '#2e2438', sun: '#c8b8e0', far: '#3a2c44', mid: '#5a4054', ground: '#7c5a5c', groundDark: '#4e383c', rock: '#5c4650', rockHi: '#8a6a74', dust: '#b09aa8', stars: true },
       objective: 'TRIANGULATE THE TRANSMISSION',
       ents: [
@@ -357,10 +358,10 @@
         { type: 'station', x: 700 },
         { type: 'station', x: 2000 },
         { type: 'pit', x: 1300, w: 96 },
-        { type: 'exit', dir: -1, x: 40, to: 'gale' }
+        { type: 'exit', dir: -1, x: 40, to: 'jezero' }
       ],
       items: ['relay_patch']
-    }
+    },
   ];
 
   /* ---- world compaction: discoveries sit a little closer to the doors ---- */
@@ -602,25 +603,27 @@
     'opportunity', 'phoenix', 'curiosity', 'insight', 'ingenuity', 'perseverance'];
 
   TL.D.EPILOGUE = [
-    'UPLINK ESTABLISHED — EARTH',
-    'The fragments assembled: launch days and last days, hot springs and blueberries, frost on a sample arm and a birthday song in an empty crater.',
-    'For sixty years humanity wondered if its machines were lonely out here. The machines were not lonely. They were LISTENING. Every one of them kept the record, in case anyone ever came back for it.',
-    'The things humanity left behind were never left behind. They were trusted — with the rocks, the winters, the wind, and the waiting.',
-    'MISSION COMPLETE. DISCOVERIES: 12/12. SENDING EVERYTHING HOME.',
-    'Signed: THE EXPLORERS OF MARS, 1965 — present'
+    'Uplink established. Earth is listening.',
+    'Everything is here. Mariner 4\'s eleven half-ruined frames — the first close-up of another world, drawn by hand from numbers because we could not yet look.',
+    'Viking 2, waiting alone in the winds of Utopia Planitia. It recorded four Martian years of frost and falling dust, just in case someone ever read the log.',
+    'Spirit, reading the rocks of Gusev like pages: ash, silica, carbonate. An old lake, decoded layer by layer. Curiosity, climbing a mountain of time, still singing in the key of C.',
+    'Each machine carried the last one forward. Every failure became a lesson. Every silence became a question someone refused to stop asking.',
+    'That is what perseverance means. Not one heroic jump — a relay. A torch passed hand to hand across generations, across sixty years, across 250 million kilometres.',
+    'You were not tracking a signal, little one. You were RECEIVING it. The record is yours now. Carry it forward.',
+    'MISSION COMPLETE. DISCOVERIES: 12/12. SENDING EVERYTHING HOME.'
   ];
 
   /* per-area welcome shown when entering first time */
   TL.D.WELCOME = {
-    ares: 'MARS. You travelled millions of kilometres and were not the first one here. Something is broadcasting, 300 metres ahead.',
+    chryse: 'Touchdown confirmed. Chryse Planitia, 1976. Fifty years of silence end here — the oldest voice on Mars is broadcasting, and it has been waiting for you.',
+    utopia: 'The north. Colder, dimmer, quieter. Another dish glints in the dust — the silent twin of the voice you just met.',
+    ares: 'Pathfinder\'s landing site. A base station still points its dish at the sky, and out in the rocks, the first rover to drive on Mars is still surveying.',
     gusev: 'A crater that held a lake. The wind carries a voice with an edge to it.',
     meridiani: 'Endless flat plains. In the distance, something small and bright is talking to itself.',
-    chryse: 'The oldest voice on Mars is here. It has been waiting since 1976.',
-    utopia: 'The north. Colder, dimmer, quieter. Another dish glints in the dust.',
     boreal: 'Frost on the ground. Something once dug here and found water.',
-    elysium: 'A smooth, silent plain. Perfect ground for listening.',
-    jezero: 'An ancient river delta. Above the horizon: a flicker of rotor blades.',
     gale: 'A mountain of layered time. You hear faint vibration — a song, maybe, in the key of C.',
+    elysium: 'A smooth, silent plain. Perfect ground for listening.',
+    jezero: 'An ancient river delta. Above the horizon: a flicker of rotor blades. The newest explorer waits here.',
     relay: 'The source. The signal is strong here. Final objective.'
   };
 
@@ -772,21 +775,25 @@
     }
   };
   TL.D.MG.spirit_layers = {
-    type: 'order',
+    type: 'strata',
     title: 'SPIRIT — STRATIGRAPHIC RECONSTRUCTION',
-    prompt: 'Rebuild the geological column: OLDEST layer at the BOTTOM. Click two chips to swap. Then press CONFIRM.',
+    prompt: 'Rebuild the core: drag each specimen into the column. TOP of the core is the YOUNGEST layer, BOTTOM is the OLDEST bedrock. Click a sample, then click a slot, if you prefer.',
     order: ['basalt', 'ash', 'silica', 'carbonate'],
     hints: [
       'Gusev\'s floor is ancient volcanic bedrock — nothing rests beneath it.',
       'Ash from the great eruptions settled over the bare rock before water left any minerals.',
       'Opaline silica points to hot springs late in the story; carbonate veins in neutral-pH water came last.'
     ],
-    labels: {
-      basalt: 'BEDROCK: Gusev\'s volcanic plain floor. The crater\'s original floor — no water here.',
-      ash: 'VOLCANIC ASH: laid down by ancient eruptions across the plains.',
-      silica: 'SILICA DEPOSITS: nearly pure opaline silica — hot springs or fumaroles. Water was HERE.',
-      carbonate: 'CARBONATE VEINS: formed in neutral-pH water, the strongest hint of a habitable ancient Gusev.'
-    }
+    samples: [
+      { id: 'basalt', name: 'BASALT BEDROCK', color: '#3a3f46', hi: '#5a626e',
+        desc: 'Volcanic plain floor. Gusev\'s original crust — no water ever touched it. Goes at the very bottom.' },
+      { id: 'ash', name: 'VOLCANIC ASH', color: '#6e5a48', hi: '#8f7a62',
+        desc: 'Fine grey-brown tuff, laid down by ancient eruptions across the bare rock.' },
+      { id: 'silica', name: 'OPALINE SILICA', color: '#c8dcd0', hi: '#e8f4ec',
+        desc: 'Nearly pure opaline silica — hot springs or fumaroles. Water was HERE.' },
+      { id: 'carbonate', name: 'CARBONATE VEINS', color: '#d8c8a8', hi: '#f0e4c8',
+        desc: 'Formed in neutral-pH water. The strongest hint of a habitable ancient Gusev. Youngest of all.' }
+    ]
   };
 
   /* which activity each char runs */

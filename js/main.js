@@ -38,8 +38,11 @@
       G.enterArea(TL.S.current, TL.S.spawnX !== null ? TL.S.spawnX : undefined);
       G.setMode('play');
     } else {
+      /* preload the imported cinematic images BEFORE the sequence starts:
+         zero flicker, zero code-art placeholders */
       Cin_reset();
-      G.setMode('cinematic');
+      TL.Loading.begin(function () { G.setMode('cinematic'); });
+      G.setMode('loading');
     }
   };
   function Cin_reset() { TL.Cinematic.t = 0; TL.Cinematic.scene = 0; TL.Cinematic.sceneT = 0; }
@@ -47,10 +50,10 @@
   G.finishIntro = function () {
     TL.S.seenIntro = true;
     TL.save();
-    G.enterArea('ares', 120);
+    G.enterArea('chryse', 120);
     G.setMode('play');
     TL.toast('SIGNAL DETECTED — SOURCE UNKNOWN', '#f0a050');
-    TL.toast(TL.D.WELCOME.ares, '#9fd8c8', true);
+    TL.toast(TL.D.WELCOME.chryse, '#9fd8c8', true);
   };
 
   /* ---------- areas & travel ---------- */
@@ -74,7 +77,6 @@
     G.welcomeShown[id] = true;
     if (TL.HUD.showLocation) TL.HUD.showLocation(a.def);
     if (first && TL.D.WELCOME[id]) TL.toast(TL.D.WELCOME[id], '#9fd8c8', true);
-    /* signal led */
     var led = document.getElementById('led-sig');
     if (led) {
       led.classList.add('on');
@@ -185,28 +187,9 @@
     /* rocks draw in front of the rover: they are scenery it drives behind */
     TL.World.drawRocks(ctx, camX);
     TL.HUD.draw(ctx, p);
-    TL.HUD.drawCollect(ctx);
   };
 
-  /* ---------- toasts ---------- */
-  function drawToasts(ctx) {
-    for (var i = 0; i < TL.toasts.length; i++) {
-      var t = TL.toasts[i];
-      t.t += 0.016;
-      var alpha = t.t < 0.3 ? t.t / 0.3 : t.t > 6.5 ? Math.max(0, 1 - (t.t - 6.5) / 0.8) : 1;
-      if (t.t > 7.3) { TL.toasts.splice(i, 1); i--; continue; }
-      var lines = TL.wrap(ctx, t.text, 560, 8);
-      var h = lines.length * 14 + 12;
-      var y = 64 + i * (h + 6);
-      ctx.save();
-      ctx.globalAlpha = alpha;
-      TL.panel(ctx, TL.W / 2 - 300, y, 600, h, { corner: t.color, bg: 'rgba(6,16,22,0.9)' });
-      for (var L = 0; L < lines.length; L++) {
-        TL.text(ctx, lines[L], TL.W / 2, y + 7 + L * 14, 8, t.color, 'center');
-      }
-      ctx.restore();
-    }
-  }
+  /* ---------- notifications (two dedicated zones, see core.js) ---------- */
 
   /* ---------- fade ---------- */
   function updateFade(dt) {
@@ -231,6 +214,7 @@
   G.update = function (dt) {
     G.t += dt;
     TL.S.playtime = (TL.S.playtime || 0) + dt;
+    TL.Notify.update(dt);
     /* global mute key */
     if (TL.hit('m') && G.mode !== 'settings') {
       TL.S.settings.mute = !TL.S.settings.mute;
@@ -242,6 +226,7 @@
     switch (G.mode) {
       case 'title': TL.Title.update(dt); break;
       case 'about': break;
+      case 'loading': TL.Loading.update(dt); break;
       case 'cinematic': TL.Cinematic.update(dt); break;
       case 'slides': TL.Slides.update(dt); break;
       case 'play':
@@ -270,18 +255,19 @@
     switch (G.mode) {
       case 'title': TL.Title.draw(ctx); break;
       case 'about': TL.About.draw(ctx); break;
+      case 'loading': TL.Loading.draw(ctx); break;
       case 'cinematic': TL.Cinematic.draw(ctx); break;
       case 'play':
         G.drawWorldFrame(ctx);
         if (TL.Dialogue.active) TL.Dialogue.draw(ctx);
-        drawToasts(ctx);
+        TL.Notify.draw(ctx);
         TL.crt(ctx, G.t);
         break;
       case 'minigame':
         TL.MG.draw(ctx);
-        drawToasts(ctx);
+        TL.Notify.draw(ctx);
         break;
-      case 'pause': TL.Pause.draw(ctx); drawToasts(ctx); break;
+      case 'pause': TL.Pause.draw(ctx); TL.Notify.drawStatus(ctx); break;
       case 'map': TL.Map.draw(ctx); break;
       case 'archive': TL.Archive.draw(ctx); break;
       case 'slides': TL.Slides.draw(ctx); break;
